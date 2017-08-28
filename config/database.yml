@@ -13,13 +13,13 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   socket: /tmp/mysql.sock
 
 development:
   <<: *default
-  database: bookshelf_development
+  database: bookshelf
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -49,6 +49,4 @@ test:
 #
 production:
   <<: *default
-  database: bookshelf_production
-  username: bookshelf
-  password: <%= ENV['BOOKSHELF_DATABASE_PASSWORD'] %>
+  database: bookshelf
