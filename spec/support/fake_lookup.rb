@@ -4,7 +4,8 @@ class FakeLookup
   end
 
   def by_isbn(isbn)
-    Books::LookupResult.new(OpenStruct.new(
+    OpenStruct.new(
+      exists?: true,
       isbn: isbn,
       title: 'Rspec',
       description: 'A book about Rspec',
@@ -12,6 +13,6 @@ class FakeLookup
       published_date: '2010',
       authors_array: ['David Chelimsky', 'Dan North'],
       categories: 'Computers'
-    ))
+    )
   end
 end
