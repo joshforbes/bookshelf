@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Books::Book, type: :model do
-  describe 'Validation' do
+  describe '#valid?' do
     before(:each) do
       @book = build(:book)
     end
