@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :book do
+  factory :book, class: Books::Book do
     isbn { Faker::Number.number(13) }
     title { Faker::Book.title }
     description { Faker::Lorem.paragraph }

@@ -1,4 +1,4 @@
-class GoogleBooksSearch
+class Books::Lookup
   def initialize(searcher = GoogleBooks)
     @searcher = searcher
   end
