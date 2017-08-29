@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe GoogleBooksSearch do
-  describe 'searching by isnb' do
+  describe 'searching by isbn' do
     let(:search_results) do
       [
         OpenStruct.new(
