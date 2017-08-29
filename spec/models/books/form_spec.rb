@@ -20,10 +20,10 @@ RSpec.describe Books::CreateForm do
       stub_const('Books::Lookup', FakeLookup)
       form = Books::CreateForm.new(isbn: '9781934356371')
 
-      book = form.save
+      is_saved = form.save
 
-      expect(book.isbn).to eq('9781934356371')
-      expect(book.persisted?).to be(true)
+      expect(is_saved).to be(true)
+      expect(Books::Book.find_by_isbn('9781934356371')).not_to be_nil
     end
 
     it 'returns false if the save fails' do
