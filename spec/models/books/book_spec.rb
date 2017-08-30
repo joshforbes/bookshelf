@@ -52,4 +52,31 @@ RSpec.describe Books::Book, type: :model do
       expect(Authors::Author.count).to eq(1)
     end
   end
+
+  describe '#add_tag' do
+    let(:book) { create(:book) }
+
+    it 'adds an tag to the book' do
+      book.add_tag('New Tag')
+
+      expect(book.tags.count).to eq(1)
+      expect(book.tags.first.name).to eq('New Tag')
+    end
+
+    it 'can add a second tag' do
+      book.add_tag('Test Tag')
+      book.add_tag('Another Tag')
+
+      expect(book.tags.count).to eq(2)
+      expect(book.tags.second.name).to eq('Another Tag')
+    end
+
+    it 'adds an tag to the book that already exists but does not create a new tag record' do
+      tag = create(:tag)
+      book.add_tag(tag.name)
+
+      expect(book.tags.first.name).to eq(tag.name)
+      expect(Tags::Tag.count).to eq(1)
+    end
+  end
 end
