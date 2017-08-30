@@ -14,5 +14,11 @@ RSpec.describe Authors::Author, type: :model do
       @author.name = nil
       expect(@author).not_to be_valid
     end
+
+    it 'is not valid if name is not unique' do
+      another_author = create(:author)
+      @author.name = another_author.name
+      expect(@author).not_to be_valid
+    end
   end
 end
