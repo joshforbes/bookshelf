@@ -14,7 +14,7 @@ RSpec.describe Books::BooksController, type: :controller do
       it 'creates a new Book' do
         expect {
           post :create, params: valid_attributes
-        }.to change(Book, :count).by(1)
+        }.to change(Books::Book, :count).by(1)
         expect(response).to have_http_status(:created)
       end
     end

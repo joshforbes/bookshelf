@@ -1,3 +1,5 @@
-class Books::Book < ApplicationRecord
-  validates :isbn, :title, :description, presence: true
+module Books
+  class Book < ApplicationRecord
+    validates :isbn, :title, :description, presence: true
+  end
 end
