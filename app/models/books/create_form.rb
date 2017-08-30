@@ -1,7 +1,7 @@
 class Books::CreateForm
   include ActiveModel::Model
 
-  attr_accessor :isbn, :title, :description, :pages, :published_date
+  attr_accessor :isbn, :title, :description, :pages, :published_date, :authors
 
   validates :isbn, :title, :description, presence: true
 
@@ -13,7 +13,7 @@ class Books::CreateForm
   private
 
   def persist!
-    book = Books::Book.create!(
+    Books::Book.create!(
       isbn: isbn,
       title: title,
       description: description,
