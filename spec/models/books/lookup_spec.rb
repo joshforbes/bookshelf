@@ -11,7 +11,6 @@ describe Books::Lookup do
           page_count: 123,
           published_date: '2010',
           authors_array: ['David Chelimsky', 'Dan North'],
-          categories: 'Computers'
         )
       ]
     end
@@ -23,25 +22,24 @@ describe Books::Lookup do
 
       book_result = google_books_search.by_isbn('9781934356371')
 
-      expect(book_result.exists?).to be(true)
-      expect(book_result.isbn).to eq('9781934356371')
-      expect(book_result.title).to eq('Rspec')
-      expect(book_result.description).to eq('A book about Rspec')
-      expect(book_result.pages).to eq(123)
-      expect(book_result.published_date).to eq('2010')
-      expect(book_result.authors).to match_array(['David Chelimsky', 'Dan North'])
-      expect(book_result.categories).to match_array(['Computers'])
+      expect(book_result.any?).to be(true)
+      expect(book_result[:isbn]).to eq('9781934356371')
+      expect(book_result[:title]).to eq('Rspec')
+      expect(book_result[:description]).to eq('A book about Rspec')
+      expect(book_result[:pages]).to eq(123)
+      expect(book_result[:published_date]).to eq('2010')
+      expect(book_result[:authors]).to match_array(['David Chelimsky', 'Dan North'])
     end
 
-    it 'return a null book if the isbn does not match' do
+    it 'return an empty hash if the isbn does not match' do
       searcher = double('search')
       allow(searcher).to receive(:search) { search_results }
       google_books_search = Books::Lookup.new(searcher)
 
       book_result = google_books_search.by_isbn('123456789')
 
-      expect(book_result.exists?).to be(false)
-      expect(book_result.isbn).to be(nil)
+      expect(book_result.empty?).to be(true)
+      expect(book_result[:isbn]).to be(nil)
     end
   end
 end
