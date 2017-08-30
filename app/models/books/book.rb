@@ -1,5 +1,7 @@
 module Books
   class Book < ApplicationRecord
+    attribute :active, :boolean, default: true
+
     validates :isbn, :title, :description, presence: true
 
     has_and_belongs_to_many :authors, class_name: 'Authors::Author'
