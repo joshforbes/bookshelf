@@ -10,7 +10,7 @@ class CreateBooks < ActiveRecord::Migration[5.1]
 
       t.timestamps
 
-      t.index :isbn, unique: true
+      t.index :isbn
     end
   end
 end
