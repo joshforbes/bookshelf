@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170830171930) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   add_foreign_key "taggings", "tags"
