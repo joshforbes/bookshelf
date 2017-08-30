@@ -2,14 +2,33 @@ require 'rails_helper'
 
 RSpec.describe Books::CreateForm do
   describe '#valid?' do
+    before(:each) do
+      @params = { isbn: '123456789', title: 'Test', description: 'Test description' }
+    end
+
     it 'is valid with valid attributes' do
-      form = Books::CreateForm.new(isbn: '123456789')
+      form = Books::CreateForm.new(@params)
 
       expect(form).to be_valid
     end
 
     it 'is not valid without a isbn' do
-      form = Books::CreateForm.new(isbn: nil)
+      @params['isbn'] = nil
+      form = Books::CreateForm.new(@params)
+
+      expect(form).not_to be_valid
+    end
+
+    it 'is not valid without a title' do
+      @params['title'] = nil
+      form = Books::CreateForm.new(@params)
+
+      expect(form).not_to be_valid
+    end
+
+    it 'is not valid without a description' do
+      @params['description'] = nil
+      form = Books::CreateForm.new(@params)
 
       expect(form).not_to be_valid
     end
@@ -17,18 +36,12 @@ RSpec.describe Books::CreateForm do
 
   describe '#save' do
     it 'persists a new book' do
-      stub_const('Books::Lookup', FakeLookup)
-      form = Books::CreateForm.new(isbn: '9781934356371')
+      form = Books::CreateForm.new(isbn: '123456789', title: 'Test', description: 'Test description')
 
-      is_saved = form.save
+      book = form.save
 
-      expect(is_saved).to be(true)
-      expect(Books::Book.find_by_isbn('9781934356371')).not_to be_nil
+      expect(book.isbn).to eq('123456789')
+      expect(book.persisted?).to be(true)
     end
-
-    it 'returns false if the save fails' do
-
-    end
-
   end
 end

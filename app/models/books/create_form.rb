@@ -1,30 +1,24 @@
 class Books::CreateForm
   include ActiveModel::Model
 
-  attr_accessor :isbn
+  attr_accessor :isbn, :title, :description, :pages, :published_date
 
-  validates :isbn, presence: true
+  validates :isbn, :title, :description, presence: true
 
   def save
     return false unless valid?
-    persist
+    persist!
   end
 
   private
 
-  def persist
-    result = Books::Lookup.new.by_isbn(isbn)
-    return false unless result.exists?
-
-    book = Books::Book.new(
+  def persist!
+    book = Books::Book.create!(
       isbn: isbn,
-      title: result.title,
-      description: result.description,
-      pages: result.pages,
-      published_date: result.published_date
+      title: title,
+      description: description,
+      pages: pages,
+      published_date: published_date
     )
-    book.save
-
-    true
   end
 end
