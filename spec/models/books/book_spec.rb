@@ -78,5 +78,14 @@ RSpec.describe Books::Book, type: :model do
       expect(book.tags.first.name).to eq(tag.name)
       expect(Tags::Tag.count).to eq(1)
     end
+
+    it 'can not add the same tag to the book twice' do
+      book.add_tag('New Tag')
+      book.add_tag('New Tag')
+
+      expect(book.tags.count).to eq(1)
+      expect(book.tags.first.name).to eq('New Tag')
+      expect(Tags::Tag.count).to eq(1)
+    end
   end
 end
