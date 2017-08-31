@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Books', type: :request do
+RSpec.describe 'Books API', type: :request do
   describe 'POST #create' do
     before :each do
       stub_const('Books::Lookup', FakeLookup)
