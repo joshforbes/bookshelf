@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170830171930) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["isbn"], name: "index_books_on_isbn", unique: true
+    t.index ["isbn"], name: "index_books_on_isbn"
   end
 
   create_table "taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
