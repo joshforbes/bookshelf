@@ -9,12 +9,12 @@ module Books
     has_many :tags, through: :taggings
 
     def add_author(name)
-      self.authors << Authors::Author.find_or_create_by(name: name)
+      self.authors << Authors::Author.where(name: name).first_or_create
       self
     end
 
     def add_tag(name)
-      self.tags << Tags::Tag.find_or_create_by(name: name)
+      tag = Tags::Tag.where(name: name).first_or_create
       self.tags << tag unless self.tags.include?(tag)
 
       self
