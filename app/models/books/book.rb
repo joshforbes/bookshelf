@@ -15,6 +15,8 @@ module Books
 
     def add_tag(name)
       self.tags << Tags::Tag.find_or_create_by(name: name)
+      self.tags << tag unless self.tags.include?(tag)
+
       self
     end
   end
