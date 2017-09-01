@@ -6,7 +6,7 @@ module Books
       if @book_form.save
         render json: @book_form.book, status: :created
       else
-        render json: { errors: @book_form.errors }, status: :unprocessable_entity
+        render_validation_error @book_form
       end
     end
   end
