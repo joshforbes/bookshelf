@@ -1,5 +1,5 @@
 module Books
-  class CreateForm
+  class AddBookForm
     include ActiveModel::Validations
 
     validates :isbn, presence: true

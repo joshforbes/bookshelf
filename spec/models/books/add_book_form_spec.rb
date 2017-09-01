@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe Books::CreateForm do
+RSpec.describe Books::AddBookForm do
   describe '#valid?' do
     it 'is valid with valid attributes' do
-      form = Books::CreateForm.new({ isbn: '123456789' })
+      form = Books::AddBookForm.new({ isbn: '123456789' })
       form.instance_variable_set(:@result, { isbn: '123456789' })
 
       expect(form).to be_valid
     end
 
     it 'is not valid without a isbn' do
-      form = Books::CreateForm.new({ isbn: nil })
+      form = Books::AddBookForm.new({ isbn: nil })
 
       expect(form).not_to be_valid
     end
@@ -20,7 +20,7 @@ RSpec.describe Books::CreateForm do
     let(:params) { { isbn: '123456789' } }
 
     it 'persists a new book' do
-      form = Books::CreateForm.new(params, FakeLookup.new)
+      form = Books::AddBookForm.new(params, FakeLookup.new)
 
       form.save
 
@@ -30,7 +30,7 @@ RSpec.describe Books::CreateForm do
     end
 
     it 'adds an author to the book' do
-      form = Books::CreateForm.new(params, FakeLookup.new)
+      form = Books::AddBookForm.new(params, FakeLookup.new)
 
       form.save
 
