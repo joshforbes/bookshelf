@@ -1,12 +1,12 @@
 module Books
   class BooksController < ApplicationController
     def create
-      @book_form = Books::AddBookForm.new(params.permit(:isbn))
+      @form = Books::AddBookForm.new(params.permit(:isbn))
 
-      if @book_form.save
-        render json: @book_form.book, status: :created
+      if @form.save
+        render json: @form.book, status: :created
       else
-        render_validation_error @book_form
+        render_validation_error @form
       end
     end
   end

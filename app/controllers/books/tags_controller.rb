@@ -1,10 +1,13 @@
 module Books
   class TagsController < ApplicationController
     def create
-      @book = Books::Book.find(params[:book_id])
-      @book.add_tag(params[:name])
+      @form = Books::TagBookForm.new(params.permit(:book_id, :name))
 
-      render json: @book, status: :created
+      if @form.save
+        render json: @form.book, status: :created
+      else
+        render_validation_error @form
+      end
     end
   end
 end
