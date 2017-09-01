@@ -1,26 +1,39 @@
 module Books
   class CreateForm
-    include ActiveModel::Model
+    include ActiveModel::Validations
 
-    attr_accessor :isbn, :title, :description, :pages, :published_date, :authors
+    validates :isbn, presence: true
+    validate :validate_isbn
 
-    validates :isbn, :title, :description, :authors, presence: true
+    attr_accessor :isbn, :book
+
+    def initialize(params, lookup = Books::Lookup.new(GoogleBooks))
+      @isbn = params[:isbn]
+      @lookup = lookup
+      @result = {}
+    end
 
     def save
-      return false unless valid?
-      persist!
+      @result = @lookup.by_isbn(@isbn)
+
+      if valid?
+        @book = Books::Book.create!(book_params)
+        authors.each { |author_name| @book.add_author(author_name) }
+      end
     end
 
     private
 
-    def persist!
-      book = Books::Book.create!(book_params)
-      authors.each { |author_name| book.add_author(author_name) }
-      book
+    def validate_isbn
+      errors.add(:isbn, 'invalid ISBN') if @result.empty?
     end
 
     def book_params
-      { isbn: isbn, title: title, description: description, pages: pages, published_date: published_date }
+      @result.slice(:isbn, :title, :description, :pages, :published_date)
+    end
+
+    def authors
+      @result[:authors]
     end
   end
 end
