@@ -16,7 +16,12 @@ module Books
     def add_tag(name)
       tag = Tags::Tag.where(name: name).first_or_create
       self.tags << tag unless self.tags.include?(tag)
+      self
+    end
 
+    def remove_tag(tag)
+      self.tags.destroy tag
+      tag.destroy if tag.unused?
       self
     end
   end

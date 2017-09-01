@@ -88,4 +88,27 @@ RSpec.describe Books::Book, type: :model do
       expect(Tags::Tag.count).to eq(1)
     end
   end
+
+  describe '#remove_tag' do
+    it 'removes the tag from the book' do
+      @tag = create(:tag)
+      @book = create(:book)
+      @book.tags << @tag
+
+      @book.remove_tag(@tag)
+
+      expect(@book.tags.count).to eq(0)
+    end
+
+    it 'removes the tag from the book and deletes the tag if nothing else has that tag' do
+      @tag = create(:tag)
+      @book = create(:book)
+      @book.tags << @tag
+
+      @book.remove_tag(@tag)
+
+      expect(@book.tags.count).to eq(0)
+      expect(Tags::Tag.count).to eq(0)
+    end
+  end
 end
