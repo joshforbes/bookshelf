@@ -7,9 +7,9 @@ RSpec.describe 'Book Tagging API', type: :request do
         book = create(:book)
         tag = create(:tag)
 
-        expect {
-          post book_tags_url(book), params: { name: tag.name }
-        }.to change(book.tags, :count).by(1)
+        post book_tags_url(book), params: { name: tag.name }
+
+        expect(book.tags.count).to eq(1)
         expect(response).to have_http_status(:created)
       end
     end
@@ -19,6 +19,7 @@ RSpec.describe 'Book Tagging API', type: :request do
         book = create(:book)
 
         post book_tags_url(book), params: { name: nil }
+
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

@@ -10,9 +10,9 @@ RSpec.describe 'Books API', type: :request do
 
     context 'with valid params' do
       it 'creates a new Book' do
-        expect {
-          post books_url, params: valid_attributes
-        }.to change(Books::Book, :count).by(1)
+        post books_url, params: valid_attributes
+
+        expect(Books::Book.count).to eq(1)
         expect(response).to have_http_status(:created)
       end
     end
@@ -20,6 +20,7 @@ RSpec.describe 'Books API', type: :request do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new book' do
         post books_url, params: { isbn: nil }
+
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
