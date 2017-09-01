@@ -110,5 +110,19 @@ RSpec.describe Books::Book, type: :model do
       expect(@book.tags.count).to eq(0)
       expect(Tags::Tag.count).to eq(0)
     end
+
+    it 'removes the tag from the book but does not delete the tag if another object uses that tag' do
+      @tag = create(:tag)
+      @book_one = create(:book)
+      @book_one.tags << @tag
+      @book_two = create(:book)
+      @book_two.tags << @tag
+
+      @book_one.remove_tag(@tag)
+
+      expect(@book_one.tags.count).to eq(0)
+      expect(@book_two.tags.count).to eq(1)
+      expect(Tags::Tag.count).to eq(1)
+    end
   end
 end
