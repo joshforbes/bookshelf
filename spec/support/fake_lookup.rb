@@ -1,5 +1,5 @@
 class FakeLookup
-  def initialize(searcher)
+  def initialize(searcher = {})
     @searcher = searcher
   end
 
