@@ -29,7 +29,7 @@ module Books
     end
 
     def book_params
-      @result.slice(:isbn, :title, :description, :pages, :published_year)
+      @result.slice(:isbn, :title, :description, :pages, :published_year, :cover_image_url)
     end
 
     def authors

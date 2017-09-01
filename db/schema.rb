@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170830171930) do
     t.text "description"
     t.integer "pages"
     t.integer "published_year"
+    t.string "cover_image_url"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

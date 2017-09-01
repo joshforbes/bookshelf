@@ -11,6 +11,7 @@ class FakeLookup
       pages: 123,
       published_date: '2010',
       authors: ['David Chelimsky', 'Dan North'],
+      cover_image_url: 'https://books.google.com/books/content?id=0rxoPgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'
     }
   end
 end

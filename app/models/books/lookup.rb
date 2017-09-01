@@ -15,10 +15,19 @@ module Books
           pages: book.page_count,
           published_year: book.published_date.to_i,
           authors: book.authors_array,
+          cover_image_url: to_https(book.image_link)
         }
       else
         {}
       end
+    end
+
+    private
+
+    def to_https(url)
+      uri = URI.parse(url)
+      uri.scheme = 'https'
+      uri.to_s
     end
   end
 end

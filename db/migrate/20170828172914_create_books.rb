@@ -6,6 +6,7 @@ class CreateBooks < ActiveRecord::Migration[5.1]
       t.text :description
       t.integer :pages
       t.integer :published_year
+      t.string :cover_image_url
       t.boolean :active
 
       t.timestamps

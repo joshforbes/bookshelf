@@ -11,6 +11,7 @@ describe Books::Lookup do
           page_count: 123,
           published_date: 2010,
           authors_array: ['David Chelimsky', 'Dan North'],
+          image_link: 'http://www.google.com'
         )
       ]
     end
@@ -29,6 +30,7 @@ describe Books::Lookup do
       expect(book_result[:pages]).to eq(123)
       expect(book_result[:published_year]).to eq(2010)
       expect(book_result[:authors]).to match_array(['David Chelimsky', 'Dan North'])
+      expect(book_result[:cover_image_url]).to eq('https://www.google.com')
     end
 
     it 'return an empty hash if the isbn does not match' do
