@@ -5,6 +5,12 @@ module Tags
     has_many :taggings, class_name: 'Tags::Tagging'
     has_many :books, through: :taggings, source: :taggable, source_type: 'Books::Book'
 
+    def cleanup
+      self.destroy if unused?
+    end
+
+    private
+
     def unused?
       self.taggings.empty?
     end

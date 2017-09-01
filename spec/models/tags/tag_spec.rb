@@ -22,23 +22,23 @@ RSpec.describe Tags::Tag, type: :model do
     end
   end
 
-  describe '#unused?' do
-    it 'returns false if something is tagged' do
+  describe '#cleanup' do
+    it 'deletes the tag if it is not being used' do
+      @tag = create(:tag)
+
+      @tag.cleanup
+
+      expect(Tags::Tag.count).to eq(0)
+    end
+
+    it 'does not delete the tag if it is being used' do
       @tag = create(:tag)
       @book = create(:book)
       @book.tags << @tag
 
-      is_used = @tag.unused?
+      @tag.cleanup
 
-      expect(is_used).to be(false)
-    end
-
-    it 'returns true if nothing is tagged' do
-      @tag = create(:tag)
-
-      is_used = @tag.unused?
-
-      expect(is_used).to be(true)
+      expect(Tags::Tag.count).to eq(1)
     end
   end
 end
