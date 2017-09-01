@@ -3,7 +3,7 @@ module Books
     include ActiveModel::Validations
 
     validates :isbn, presence: true
-    validate :validate_isbn
+    validate :lookup_succeeded
 
     attr_accessor :isbn, :book
 
@@ -24,7 +24,7 @@ module Books
 
     private
 
-    def validate_isbn
+    def lookup_succeeded
       errors.add(:isbn, 'invalid ISBN') if @result.empty?
     end
 
