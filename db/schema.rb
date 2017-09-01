@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170830171930) do
     t.string "title"
     t.text "description"
     t.integer "pages"
-    t.date "published_date"
+    t.integer "published_year"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

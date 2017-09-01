@@ -3,6 +3,7 @@ module Books
     attribute :active, :boolean, default: true
 
     validates :isbn, :title, :description, presence: true
+    validates :published_year, length: { is: 4 }, allow_blank: true
 
     has_and_belongs_to_many :authors, class_name: 'Authors::Author'
     has_many :taggings, as: :taggable, class_name: 'Tags::Tagging'

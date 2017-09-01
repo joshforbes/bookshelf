@@ -4,6 +4,6 @@ FactoryGirl.define do
     title { Faker::Book.title }
     description { Faker::Lorem.paragraph }
     pages { Faker::Number.number(3) }
-    published_date { Faker::Date.between(50.years.ago, 1.year.ago) }
+    published_year { Faker::Number.between(1900, 2017) }
   end
 end

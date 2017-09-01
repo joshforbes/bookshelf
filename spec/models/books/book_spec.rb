@@ -24,6 +24,11 @@ RSpec.describe Books::Book, type: :model do
       @book.title = nil
       expect(@book).not_to be_valid
     end
+
+    it 'is not valid with a published_year that does not have a length of 4' do
+      @book.published_year = 12345
+      expect(@book).not_to be_valid
+    end
   end
 
   describe '#add_author' do

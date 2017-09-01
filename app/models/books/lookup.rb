@@ -13,7 +13,7 @@ module Books
           title: book.title,
           description: book.description,
           pages: book.page_count,
-          published_date: book.published_date,
+          published_year: book.published_date.to_i,
           authors: book.authors_array,
         }
       else

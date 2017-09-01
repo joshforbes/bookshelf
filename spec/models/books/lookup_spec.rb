@@ -9,7 +9,7 @@ describe Books::Lookup do
           title: 'Rspec',
           description: 'A book about Rspec',
           page_count: 123,
-          published_date: '2010',
+          published_date: 2010,
           authors_array: ['David Chelimsky', 'Dan North'],
         )
       ]
@@ -27,7 +27,7 @@ describe Books::Lookup do
       expect(book_result[:title]).to eq('Rspec')
       expect(book_result[:description]).to eq('A book about Rspec')
       expect(book_result[:pages]).to eq(123)
-      expect(book_result[:published_date]).to eq('2010')
+      expect(book_result[:published_year]).to eq(2010)
       expect(book_result[:authors]).to match_array(['David Chelimsky', 'Dan North'])
     end
 
