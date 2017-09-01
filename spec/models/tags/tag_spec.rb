@@ -21,4 +21,24 @@ RSpec.describe Tags::Tag, type: :model do
       expect(@tag).not_to be_valid
     end
   end
+
+  describe '#unused?' do
+    it 'returns false if something is tagged' do
+      @tag = create(:tag)
+      @book = create(:book)
+      @book.tags << @tag
+
+      is_used = @tag.unused?
+
+      expect(is_used).to be(false)
+    end
+
+    it 'returns true if nothing is tagged' do
+      @tag = create(:tag)
+
+      is_used = @tag.unused?
+
+      expect(is_used).to be(true)
+    end
+  end
 end
