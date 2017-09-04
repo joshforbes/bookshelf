@@ -22,21 +22,21 @@ RSpec.describe Tags::Tag, type: :model do
     end
   end
 
-  describe '#cleanup' do
-    it 'deletes the tag if it is not being used' do
+  describe '#removed' do
+    it 'deletes the tag if it is not being used anymore' do
       @tag = create(:tag)
 
-      @tag.cleanup
+      @tag.removed
 
       expect(Tags::Tag.count).to eq(0)
     end
 
-    it 'does not delete the tag if it is being used' do
+    it 'does not delete the tag if it is still being used' do
       @tag = create(:tag)
       @book = create(:book)
       @book.tags << @tag
 
-      @tag.cleanup
+      @tag.removed
 
       expect(Tags::Tag.count).to eq(1)
     end

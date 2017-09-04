@@ -22,7 +22,7 @@ module Books
 
     def remove_tag(tag)
       self.tags.destroy tag
-      tag.cleanup
+      tag.removed
       self
     end
   end
