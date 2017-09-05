@@ -6,13 +6,13 @@ module Tags
     has_many :books, through: :taggings, source: :taggable, source_type: 'Books::Book'
 
     def removed
-      self.destroy if unused?
+      destroy if unused?
     end
 
     private
 
     def unused?
-      self.taggings.empty?
+      taggings.empty?
     end
   end
 end
