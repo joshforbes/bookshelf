@@ -1,67 +1,65 @@
 require 'rails_helper'
 
 RSpec.describe Users::Token, type: :model do
-  it 'can get the body' do
-    user = create(:user)
-    token = Users::Token.new(user)
+  describe '.active?' do
+    it 'can find active tokens' do
+      token = create(:token, last_used_at: Time.now)
 
-    body = token.body
+      found_token = Users::Token.active.first
 
-    expect(body).to eq(user.auth_token)
+      expect(found_token.id).to eq(token.id)
+    end
+
+    it 'does not find expired tokens' do
+      create(:token, last_used_at: 10.days.ago)
+
+      found_token = Users::Token.active.first
+
+      expect(found_token).to be(nil)
+    end
   end
 
-  it 'can get the last used at' do
-    user = create(:user)
-    token = Users::Token.new(user)
+  describe '#use' do
+    it 'returns true if the token is not expired' do
+      token = create(:token, last_used_at: Time.now)
 
-    last_used_at = token.last_used_at
+      used = token.use
 
-    expect(user.token_last_used_at).to eq(last_used_at)
+      expect(used).to be(true)
+    end
+
+    it 'updates the last_used_at if the token can be used' do
+      token = create(:token, last_used_at: 5.days.ago)
+
+      token.use
+
+      expect(token.last_used_at.to_date).to eq(Time.current.to_date)
+    end
+
+    it 'returns false if the token is not active' do
+      token = build_stubbed(:token, last_used_at: 10.days.ago)
+
+      used = token.use
+
+      expect(used).to be(false)
+    end
   end
 
-  it 'can regenerate the body' do
-    user = create(:user)
-    token = Users::Token.new(user)
-    old_token_body = token.body
+  describe '#is_equal_to?' do
+    it 'returns true if the token body is the same as the provided string' do
+      token = create(:token)
 
-    token.regenerate
+      equal = token.is_equal_to?(token.body)
 
-    expect(token.body).to_not eq(old_token_body)
-  end
+      expect(equal).to be(true)
+    end
 
-  it 'is active if not expired' do
-    user = create(:user)
-    token = Users::Token.new(user)
+    it 'returns false if the token body is different than the provided string' do
+      token = create(:token)
 
-    active = token.active?
+      equal = token.is_equal_to?('not the same')
 
-    expect(active).to be(true)
-  end
-
-  it 'sets the last_used_at to now when used' do
-    user = create(:user, token_last_used_at: 10.days.ago)
-    token = Users::Token.new(user)
-
-    token.use
-
-    expect(user.token_last_used_at.to_date).to eq(Time.current.to_date)
-  end
-
-  it 'knows if it is equal to a token string' do
-    user = create(:user)
-    token = Users::Token.new(user)
-
-    is_equal = token.compare_to(user.auth_token)
-
-    expect(is_equal).to be(true)
-  end
-
-  it 'knows if it is not equal to a token string' do
-    user = create(:user)
-    token = Users::Token.new(user)
-
-    is_equal = token.compare_to('not-equal')
-
-    expect(is_equal).to_not be(true)
+      expect(equal).to be(false)
+    end
   end
 end

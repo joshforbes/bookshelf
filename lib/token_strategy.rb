@@ -9,14 +9,12 @@ class TokenStrategy < ::Warden::Strategies::Base
     user = Users::User.find_by_email(user_email_from_headers)
     return fail!(FAILURE_MESSAGE) unless user
 
-    token = Users::Token.new(user)
-    if token.compare_to(token_from_headers) && token.active?
-      token.use
-      return success!(user)
+    token = user.tokens.to_a.find { |token| token.is_equal_to?(token_from_headers) }
+    if token && token.use
+      success!(user)
+    else
+      fail!(FAILURE_MESSAGE)
     end
-
-    token.regenerate
-    fail!(FAILURE_MESSAGE)
   end
 
   def store?

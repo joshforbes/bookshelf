@@ -6,8 +6,7 @@ module Auth
       user = Users::User.find_by_email(session_params[:email])
 
       if user && user.authenticate(session_params[:password])
-        token = Users::Token.new(user)
-        token.use
+        token = user.tokens.create!
         render json: { token: token.body }, status: :ok
       else
         render status: :unauthorized
@@ -15,7 +14,7 @@ module Auth
     end
 
     def destroy
-      Users::Token.new(current_user).regenerate
+      Users::Token.find_by_body!(request.headers['HTTP_AUTHORIZATION']).destroy
 
       head :no_content
     end

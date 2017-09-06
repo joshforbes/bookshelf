@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906122147) do
+ActiveRecord::Schema.define(version: 20170906182553) do
 
   create_table "authors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -56,11 +56,19 @@ ActiveRecord::Schema.define(version: 20170906122147) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.string "body"
+    t.datetime "last_used_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body"], name: "index_tokens_on_body", unique: true
+    t.index ["user_id"], name: "index_tokens_on_user_id"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email"
     t.string "password_digest"
-    t.string "auth_token"
-    t.datetime "token_last_used_at"
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,4 +77,5 @@ ActiveRecord::Schema.define(version: 20170906122147) do
   end
 
   add_foreign_key "taggings", "tags"
+  add_foreign_key "tokens", "users"
 end

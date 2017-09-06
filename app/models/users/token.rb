@@ -1,35 +1,28 @@
 module Users
-  class Token
+  class Token < ApplicationRecord
     EXPIRES = 7.days.ago
 
-    def initialize(user)
-      @user = user
-    end
+    belongs_to :user, class_name: 'Users::User'
 
-    def body
-      @user.auth_token
-    end
+    scope :active, -> { where('last_used_at >= ?', EXPIRES) }
 
-    def last_used_at
-      @user.token_last_used_at
-    end
-
-    def regenerate
-      @user.regenerate_auth_token
-    end
-
-    def active?
-      @user.token_last_used_at >= EXPIRES
-    end
+    has_secure_token :body
 
     def use
-      @user.token_last_used_at = Time.current
-      @user.save!
-      self
+      return false unless active?
+
+      update!(last_used_at: Time.current)
+      true
     end
 
-    def compare_to(token)
-      ActiveSupport::SecurityUtils.secure_compare(body, token)
+    def is_equal_to?(token_string)
+      ActiveSupport::SecurityUtils.secure_compare(body, token_string)
+    end
+
+    private
+
+    def active?
+      last_used_at >= EXPIRES
     end
   end
 end

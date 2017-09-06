@@ -8,7 +8,13 @@ RSpec.describe 'Session API', type: :request do
       post sessions_url, params: { email: user.email, password: user.password }
 
       expect(response).to have_http_status(:ok)
-      expect(json_response['token']).to eq(user.auth_token)
+      expect(json_response['token']).to eq(user.tokens.first.body)
+    end
+
+    it 'does not authenticate with an invalid email' do
+      post sessions_url, params: { email: 'invalid@email.com', password: 'Invalid Password' }
+
+      expect(response).to have_http_status(:unauthorized)
     end
 
     it 'does not authenticate with an invalid password' do
@@ -23,12 +29,15 @@ RSpec.describe 'Session API', type: :request do
   describe 'DELETE #destroy' do
     it 'should destroy the current users token' do
       user = create(:user)
-      original_token = user.auth_token
+      token = create(:token, user_id: user.id)
 
-      delete sessions_url, headers: auth_headers(user)
+      delete sessions_url, headers: {
+        'HTTP_AUTHORIZATION': token.body,
+        'HTTP_USER_EMAIL': user.email
+      }
 
       expect(response).to have_http_status(:no_content)
-      expect(user.reload.auth_token).to_not eq(original_token)
+      expect(Users::Token.count).to eq(0)
     end
   end
 end

@@ -14,8 +14,9 @@ RSpec.describe TokenStrategy do
 
   it 'succeeds with valid email and token' do
     user = create(:user)
+    token = create(:token, user_id: user.id)
     ENV['HTTP_USER_EMAIL'] = user.email
-    ENV['HTTP_AUTHORIZATION'] = user.auth_token
+    ENV['HTTP_AUTHORIZATION'] = token.body
     strategy = TokenStrategy.new(ENV)
 
     auth_status = strategy.authenticate!
