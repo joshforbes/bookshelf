@@ -7,7 +7,7 @@ RSpec.describe Users::Token, type: :model do
 
     body = token.body
 
-    assert_equal(user.auth_token, body)
+    expect(body).to eq(user.auth_token)
   end
 
   it 'can get the last used at' do
