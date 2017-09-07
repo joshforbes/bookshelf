@@ -59,12 +59,21 @@ RSpec.describe Users::User, type: :model do
   end
 
   describe '#can_rent?' do
-    it 'can rent' do
-      user = build_stubbed(:user)
+    it 'is true if the user has not exceeded the maximum rentals' do
+      user = create(:user)
 
       can_rent = user.can_rent?
 
       expect(can_rent).to be(true)
+    end
+
+    it 'is false if the user has not exceeded the maximum rentals' do
+      user = create(:user)
+      create_list(:rental, Users::User::MAXIMUM_RENTALS, user: user)
+
+      can_rent = user.can_rent?
+
+      expect(can_rent).to be(false)
     end
   end
 end
