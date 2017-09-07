@@ -38,4 +38,23 @@ RSpec.describe Users::User, type: :model do
       expect(@user).not_to be_valid
     end
   end
+
+  describe '#token_matching' do
+    it 'returns an active token that matches the provided token string' do
+      user = create(:user)
+      token = create(:token, user: user)
+
+      found_token = user.token_matching(token.body)
+
+      expect(found_token.body).to eq(token.body)
+    end
+
+    it 'returns a null token if there is no matching active token' do
+      user = create(:user)
+
+      found_token = user.token_matching('not-the-correct-body')
+
+      expect(found_token).to be_an_instance_of(Users::NullToken)
+    end
+  end
 end
