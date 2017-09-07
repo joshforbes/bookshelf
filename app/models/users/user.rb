@@ -9,7 +9,7 @@ module Users
     validates :display_name, uniqueness: true, allow_nil: true
 
     def token_matching(body)
-      tokens.to_a.find { |token| token.is_equal_to?(body) } || Users::NullToken.new
+      tokens.to_a.find { |token| token.equal_to?(body) } || Users::NullToken.new
     end
   end
 end

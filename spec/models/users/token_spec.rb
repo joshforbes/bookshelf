@@ -45,11 +45,11 @@ RSpec.describe Users::Token, type: :model do
     end
   end
 
-  describe '#is_equal_to?' do
+  describe '#equal_to?' do
     it 'returns true if the token body is the same as the provided string' do
       token = create(:token)
 
-      equal = token.is_equal_to?(token.body)
+      equal = token.equal_to?(token.body)
 
       expect(equal).to be(true)
     end
@@ -57,7 +57,7 @@ RSpec.describe Users::Token, type: :model do
     it 'returns false if the token body is different than the provided string' do
       token = create(:token)
 
-      equal = token.is_equal_to?('not the same')
+      equal = token.equal_to?('not the same')
 
       expect(equal).to be(false)
     end

@@ -15,7 +15,7 @@ module Users
       true
     end
 
-    def is_equal_to?(token_string)
+    def equal_to?(token_string)
       ActiveSupport::SecurityUtils.secure_compare(body, token_string)
     end
 
