@@ -10,18 +10,18 @@ module Books
     has_many :tags, through: :taggings
 
     def add_author(name)
-      self.authors << Authors::Author.where(name: name).first_or_create
+      authors << Authors::Author.where(name: name).first_or_create
       self
     end
 
     def add_tag(name)
       tag = Tags::Tag.where(name: name).first_or_create
-      self.tags << tag unless self.tags.include?(tag)
+      tags << tag unless tags.include?(tag)
       self
     end
 
     def remove_tag(tag)
-      self.tags.destroy tag
+      tags.destroy tag
       tag.removed
       self
     end
