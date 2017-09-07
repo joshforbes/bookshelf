@@ -130,4 +130,14 @@ RSpec.describe Books::Book, type: :model do
       expect(Tags::Tag.count).to eq(1)
     end
   end
+
+  describe '#rentable?' do
+    it 'is rentable' do
+      @book = build_stubbed(:book)
+
+      rentable = @book.rentable?
+
+      expect(rentable).to be(true)
+    end
+  end
 end

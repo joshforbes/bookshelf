@@ -57,4 +57,14 @@ RSpec.describe Users::User, type: :model do
       expect(found_token).to be_an_instance_of(Users::NullToken)
     end
   end
+
+  describe '#can_rent?' do
+    it 'can rent' do
+      user = build_stubbed(:user)
+
+      can_rent = user.can_rent?
+
+      expect(can_rent).to be(true)
+    end
+  end
 end

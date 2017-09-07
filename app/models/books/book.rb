@@ -25,5 +25,9 @@ module Books
       tag.removed
       self
     end
+
+    def rentable?
+      true
+    end
   end
 end

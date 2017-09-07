@@ -11,5 +11,9 @@ module Users
     def token_matching(body)
       tokens.to_a.find { |token| token.equal_to?(body) } || Users::NullToken.new
     end
+
+    def can_rent?
+      true
+    end
   end
 end

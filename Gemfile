@@ -33,6 +33,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :development do
