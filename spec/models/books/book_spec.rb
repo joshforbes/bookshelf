@@ -132,12 +132,21 @@ RSpec.describe Books::Book, type: :model do
   end
 
   describe '#rentable?' do
-    it 'is rentable' do
-      @book = build_stubbed(:book)
+    it 'is true if the book is not currently rented' do
+      book = create(:book)
 
-      rentable = @book.rentable?
+      rentable = book.rentable?
 
       expect(rentable).to be(true)
+    end
+
+    it 'is false if the book is currently rented' do
+      book = create(:book)
+      create(:rental, book: book)
+
+      rentable = book.rentable?
+
+      expect(rentable).to be(false)
     end
   end
 end

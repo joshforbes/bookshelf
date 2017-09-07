@@ -8,6 +8,8 @@ module Books
     has_and_belongs_to_many :authors, class_name: 'Authors::Author'
     has_many :taggings, as: :taggable, class_name: 'Tags::Tagging'
     has_many :tags, through: :taggings
+    has_many :rentals, class_name: 'Rentals::Rental'
+    has_many :active_rentals, -> { active }, class_name: 'Rentals::Rental'
 
     def add_author(name)
       authors << Authors::Author.where(name: name).first_or_create
@@ -27,7 +29,7 @@ module Books
     end
 
     def rentable?
-      true
+      active_rentals.empty?
     end
   end
 end
