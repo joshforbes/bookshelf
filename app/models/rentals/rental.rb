@@ -3,6 +3,8 @@ module Rentals
     belongs_to :user, class_name: 'Users::User'
     belongs_to :book, class_name: 'Books::Book'
 
+    scope :active, -> { where(returned_at:  nil) }
+
     validates :user, :book, :rented_at, presence: true
     validate :item_is_rentable
     validate :user_can_rent

@@ -39,4 +39,22 @@ RSpec.describe Rentals::Rental, type: :model do
       expect(@rental).not_to be_valid
     end
   end
+
+  describe '.active' do
+    it 'can find rentals that have not been returned' do
+      rental = create(:rental, returned_at: nil)
+
+      found_rental = Rentals::Rental.active.first
+
+      expect(found_rental.id).to eq(rental.id)
+    end
+
+    it 'does not find returned rentals' do
+      create(:rental, returned_at: Date.current)
+
+      found_rental = Rentals::Rental.active.first
+
+      expect(found_rental).to be(nil)
+    end
+  end
 end
