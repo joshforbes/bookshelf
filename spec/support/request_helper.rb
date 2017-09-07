@@ -4,7 +4,7 @@ module RequestHelper
   end
 
   def acting_as(user)
-    auth_headers(user, user.tokens.create)
+    auth_headers(user, user.tokens.first || user.tokens.create)
   end
 
   def auth_headers(user, token)
