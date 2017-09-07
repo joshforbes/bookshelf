@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Users::Token, type: :model do
-  describe '.active?' do
+  describe '.active' do
     it 'can find active tokens' do
       token = create(:token, last_used_at: Time.now)
 
