@@ -6,6 +6,7 @@ module Users
 
     has_many :tokens, -> { active }, class_name: 'Users::Token'
     has_many :rentals, class_name: 'Rentals::Rental'
+    has_many :active_rentals, -> { active }, class_name: 'Rentals::Rental'
 
     validates :email, presence: true, uniqueness: true
     validates :password, length: { minimum: 8 }, allow_nil: true
@@ -16,7 +17,7 @@ module Users
     end
 
     def can_rent?
-      rentals.count < MAXIMUM_RENTALS
+      active_rentals.count < MAXIMUM_RENTALS
     end
   end
 end
