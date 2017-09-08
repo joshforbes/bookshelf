@@ -3,19 +3,16 @@ module Books
     include ActiveModel::Validations
 
     validates :isbn, presence: true
-    validate :lookup_succeeded
+    validate :has_results
 
     attr_accessor :isbn, :book
 
     def initialize(params, lookup = Books::Lookup.new(GoogleBooks))
       @isbn = params[:isbn]
-      @lookup = lookup
-      @result = {}
+      @result = lookup.by_isbn(@isbn)
     end
 
     def save
-      @result = @lookup.by_isbn(@isbn)
-
       if valid?
         @book = Books::Book.create!(book_params)
         authors.each { |author_name| @book.add_author(author_name) }
@@ -24,7 +21,7 @@ module Books
 
     private
 
-    def lookup_succeeded
+    def has_results
       errors.add(:isbn, 'invalid ISBN') if @result.empty?
     end
 
