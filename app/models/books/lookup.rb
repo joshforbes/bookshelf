@@ -7,7 +7,7 @@ module Books
     def by_isbn(isbn)
       book = @searcher.search(isbn: isbn).first
 
-      if book.isbn == isbn.to_s
+      if book&.isbn == isbn.to_s
         {
           isbn: book.isbn,
           title: book.title,
