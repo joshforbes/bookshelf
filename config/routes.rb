@@ -7,4 +7,7 @@ Rails.application.routes.draw do
       resources :tags, only: [:create, :destroy]
     end
   end
+  scope module: :rentals do
+    resources :rentals, only: [:create]
+  end
 end
