@@ -19,25 +19,6 @@ RSpec.describe Rentals::Rental, type: :model do
       @rental.book = nil
       expect(@rental).not_to be_valid
     end
-
-    it 'is not valid without a rented_at' do
-      @rental.rented_at = nil
-      expect(@rental).not_to be_valid
-    end
-
-    it 'is not valid with an book that is not rentable' do
-      book = mock_model(Books::Book, rentable?: false)
-      @rental.book = book
-
-      expect(@rental).not_to be_valid
-    end
-
-    it 'is not valid with a user that cannot rent' do
-      user = mock_model(Users::User, can_rent?: false)
-      @rental.user = user
-
-      expect(@rental).not_to be_valid
-    end
   end
 
   describe '.active' do

@@ -6,17 +6,5 @@ module Rentals
     scope :active, -> { where returned_at: nil }
 
     validates :user, :book, presence: true
-    validate :item_is_rentable
-    validate :user_can_rent
-
-    private
-
-    def item_is_rentable
-      errors.add(:base, 'Item is not available for rent at this time') unless book&.rentable?
-    end
-
-    def user_can_rent
-      errors.add(:base, 'User is not eligible to rent at this time') unless user&.can_rent?
-    end
   end
 end
