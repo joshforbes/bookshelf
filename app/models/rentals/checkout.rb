@@ -2,15 +2,22 @@ module Rentals
   class Checkout
     include ActiveModel::Validations
 
-    validates :book_id, :user_id, presence: true
+    validates :book, :user, presence: true
     validate :item_is_rentable
     validate :user_can_rent
 
-    attr_accessor :book, :user
+    attr_accessor :book, :user, :rental
 
-    def initialize(book_id, user_id)
-      @book = Books::Book.find(book_id)
-      @user = Users::User.find(user_id)
+    def initialize(params)
+      @book = params[:book] || Books::Book.find(params[:book_id])
+      @user = params[:user] || Users::User.find(params[:user_id])
+    end
+
+    def save
+      if valid?
+        @rental = Rentals::Rental.create(book: @book, user: @user)
+        true
+      end
     end
 
     private
