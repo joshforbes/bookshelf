@@ -1,12 +1,12 @@
 module Rentals
   class RentalsController < ApplicationController
     def create
-      @rental = Rentals::Rental.create(rental_params)
+      checkout = Rentals::Checkout.new(rental_params)
 
-      if @rental.save
-        render json: @rental.book, status: :created
+      if checkout.save
+        render json: checkout.rental, status: :created
       else
-        render_validation_error @rental
+        render_validation_error checkout
       end
     end
 
