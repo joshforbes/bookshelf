@@ -5,7 +5,7 @@ module Auth
     def create
       user = Users::User.find_by_email(session_params[:email])
 
-      if user && user.authenticate(session_params[:password])
+      if user&.authenticate(session_params[:password])
         token = user.tokens.create!
         render json: { token: token.body }, status: :ok
       else
