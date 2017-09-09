@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::API
   include WardenHelper
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    render json: { errors: e.message }, status: :not_found
+  rescue_from ActiveRecord::RecordNotFound do
+    render json: { errors: 'not found' }, status: :not_found
   end
 
   def render_validation_error(object)
