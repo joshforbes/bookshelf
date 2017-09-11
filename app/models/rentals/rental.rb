@@ -13,8 +13,7 @@ module Rentals
     after_initialize :default_values
 
     def check_in
-      self.returned_at ||= Date.current
-      save
+      update(returned_at: returned_at || Date.current)
       self
     end
 
