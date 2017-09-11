@@ -7,13 +7,15 @@ RSpec.describe Books::BookPolicy do
   context 'for a user' do
     let(:user) { create(:user) }
 
-    it { expect(subject.create?).to be(false)    }
+    it { expect(subject.create?).to be(false) }
+    it { expect(subject.delete?).to be(false) }
   end
 
   context 'for a admin' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :admin) }
 
-    it { expect(subject.create?).to be(false)    }
+    it { expect(subject.create?).to be(true) }
+    it { expect(subject.delete?).to be(true) }
   end
 
 end
