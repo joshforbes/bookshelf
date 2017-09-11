@@ -4,7 +4,7 @@ module Books
       @user.admin?
     end
 
-    def delete?
+    def destroy?
       @user.admin?
     end
   end
