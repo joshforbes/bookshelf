@@ -149,4 +149,42 @@ RSpec.describe Books::Book, type: :model do
       expect(rentable).to be(false)
     end
   end
+
+  describe '#owned_by' do
+    it 'sets the owner of the book' do
+      user = create(:user)
+      book = create(:book)
+
+      book = book.owned_by(user)
+
+      expect(book.owner_id).to eq(user.id)
+    end
+
+    it 'changes the owner of the book' do
+      new_owner = create(:user)
+      book = create(:book, :with_owner)
+
+      book = book.owned_by(new_owner)
+
+      expect(book.owner_id).to eq(new_owner.id)
+    end
+  end
+
+  describe '#remove_owner' do
+    it 'removes the owner of the book' do
+      book = create(:book, :with_owner)
+
+      book = book.remove_owner
+
+      expect(book.owner_id).to be(nil)
+    end
+
+    it 'does nothing if the book is not owned' do
+      book = create(:book)
+
+      book = book.remove_owner
+
+      expect(book.owner_id).to be(nil)
+    end
+  end
 end
