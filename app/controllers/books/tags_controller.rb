@@ -1,6 +1,7 @@
 module Books
   class TagsController < ApplicationController
     def create
+      authorize Books::Book
       form = Books::TagBookForm.new(params.permit(:book_id, :name))
 
       if form.save
@@ -12,6 +13,7 @@ module Books
 
     def destroy
       book = Books::Book.find_by_id!(params[:book_id])
+      authorize book
       tag = book.tags.find_by_id!(params[:id])
 
       book.remove_tag(tag)
