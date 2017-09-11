@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include WardenHelper
+  include Pundit
 
   rescue_from ActiveRecord::RecordNotFound do
     render json: { errors: 'not found' }, status: :not_found
