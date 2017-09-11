@@ -38,4 +38,11 @@ RSpec.describe Rentals::Rental, type: :model do
       expect(found_rental).to be(nil)
     end
   end
+  describe '#default_values' do
+    it 'initializes with a rented_at of today' do
+      rental = Rentals::Rental.new
+
+      expect(rental.rented_at).to eq(Date.current)
+    end
+  end
 end
