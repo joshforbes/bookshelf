@@ -31,7 +31,7 @@ RSpec.describe 'Book Tagging API', type: :request do
       tag = create(:tag)
       book.tags << tag
 
-      delete book_tag_url(book, tag), headers: acting_as(create(:user))
+      delete book_tag_url(book, tag), headers: acting_as(create(:user, :admin))
 
       expect(book.tags.count).to eq(0)
       expect(response).to have_http_status(:no_content)
