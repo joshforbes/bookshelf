@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
     render json: { errors: 'not found' }, status: :not_found
   end
 
+  rescue_from Pundit::NotAuthorizedError do
+    render json: { errors: 'unauthorized' }, status: :forbidden
+  end
+
   def render_validation_error(object)
     render json: { errors: object.errors }, status: :unprocessable_entity
   end
