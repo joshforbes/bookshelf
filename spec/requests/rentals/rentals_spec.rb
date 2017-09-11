@@ -22,4 +22,27 @@ RSpec.describe 'Rentals API', type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    it 'returns a active rental' do
+      rental = create(:rental)
+      user = rental.user
+
+      delete rental_url(rental), headers: acting_as(user)
+
+      expect(response).to have_http_status(:no_content)
+      expect(rental.reload.returned_at).to eq(Date.current)
+    end
+
+    context 'with a rental that is not active' do
+      it 'renders a JSON response with errors' do
+        rental = create(:rental, returned_at: Date.yesterday)
+        user = rental.user
+
+        delete rental_url(rental), headers: acting_as(user)
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end

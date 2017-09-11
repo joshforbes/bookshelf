@@ -9,5 +9,12 @@ module Rentals
         render_validation_error checkout
       end
     end
+
+    def destroy
+      rental = Rentals::Rental.active.find(params[:id])
+      rental.check_in
+
+      head :no_content
+    end
   end
 end

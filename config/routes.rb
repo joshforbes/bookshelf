@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     end
   end
   scope module: :rentals do
-    resources :rentals, only: [:create]
+    resources :rentals, only: [:create, :destroy]
   end
 end
