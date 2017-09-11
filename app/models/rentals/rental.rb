@@ -12,6 +12,12 @@ module Rentals
 
     after_initialize :default_values
 
+    def check_in
+      self.returned_at ||= Date.current
+      save
+      self
+    end
+
     private
 
     def default_values

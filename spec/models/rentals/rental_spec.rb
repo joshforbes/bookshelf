@@ -57,6 +57,24 @@ RSpec.describe Rentals::Rental, type: :model do
     end
   end
 
+  describe '#check_in' do
+    it 'set the returned_at to the current date' do
+      rental = create(:rental)
+
+      rental = rental.check_in
+
+      expect(rental.returned_at).to eq(Date.current)
+    end
+
+    it 'does not set the returned_at if the rental has already been returned' do
+      rental = create(:rental, returned_at: Date.yesterday)
+
+      rental = rental.check_in
+
+      expect(rental.returned_at).to eq(Date.yesterday)
+    end
+  end
+
   describe '#default_values' do
     it 'initializes with a rented_at of today' do
       rental = Rentals::Rental.new
