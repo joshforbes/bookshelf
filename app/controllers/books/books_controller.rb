@@ -1,6 +1,7 @@
 module Books
   class BooksController < ApplicationController
     def create
+      authorize Books::Book
       form = Books::AddBookForm.new(params.permit(:isbn))
 
       if form.save
