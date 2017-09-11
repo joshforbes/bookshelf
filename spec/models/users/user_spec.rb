@@ -76,4 +76,18 @@ RSpec.describe Users::User, type: :model do
       expect(can_rent).to be(false)
     end
   end
+
+  describe '#admin?' do
+    it 'is true if the user is an admin' do
+      user = build(:user, :admin)
+
+      expect(user.admin?).to be(true)
+    end
+
+    it 'is false if the user is not an admin' do
+      user = build(:user)
+
+      expect(user.admin?).to be(false)
+    end
+  end
 end

@@ -12,6 +12,10 @@ module Users
     validates :password, length: { minimum: 8 }, allow_nil: true
     validates :display_name, uniqueness: true, allow_nil: true
 
+    def admin?
+      is_admin
+    end
+
     def token_matching(body)
       tokens.to_a.find { |token| token.equal_to?(body) } || Users::NullToken.new
     end
