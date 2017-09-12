@@ -20,6 +20,7 @@ gem 'puma', '~> 3.7'
 gem 'bcrypt', '~> 3.1.7'
 gem 'warden'
 gem 'pundit'
+gem 'searchkick'
 gem 'googlebooks'
 
 # Use Capistrano for deployment
