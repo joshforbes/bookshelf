@@ -11,5 +11,9 @@
          created_at: created_at
        }
      end
+
+     def self.recent
+       self.search order: { created_at: :desc }
+     end
    end
  end
