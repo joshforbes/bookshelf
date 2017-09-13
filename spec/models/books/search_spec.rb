@@ -65,4 +65,16 @@ RSpec.describe Books::Search, search: true do
     end
   end
 
+  describe '.recent' do
+    it 'returns the most recent books' do
+      oldest_book = create(:book, created_at: 15.days.ago)
+      newest_book = create(:book, created_at: 10.days.ago)
+      SearchHelpers.reindex_search(Books::Search)
+
+      results = Books::Search.recent
+
+      expect(results.map(&:title)).to eq([newest_book.title, oldest_book.title])
+    end
+  end
+
 end
