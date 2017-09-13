@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resource :sessions, only: [:create, :destroy]
   end
   scope module: :books do
-    resources :books, only: [:create] do
+    resources :books, only: [:index, :create] do
       resources :tags, only: [:create, :destroy]
       resources :owners, only: [:create]
       delete :owners, to: 'owners#destroy', as: 'owner'
