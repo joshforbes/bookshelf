@@ -5,21 +5,27 @@ module Books
     end
 
     def by_isbn(isbn)
-      book = @searcher.search(isbn: isbn).first
+      result = @searcher.search(isbn: isbn).first
 
-      if book&.isbn == isbn.to_s
-        {
-          isbn: book.isbn,
-          title: book.title,
-          description: book.description,
-          pages: book.page_count,
-          published_year: book.published_date.to_i,
-          authors: book.authors_array,
-          cover_image_url: book.image_link.sub('http', 'https')
-        }
+      if result&.isbn == isbn.to_s
+        book_hash(result)
       else
         {}
       end
+    end
+
+    private
+
+    def book_hash(result)
+      {
+        isbn: result.isbn,
+        title: result.title,
+        description: result.description,
+        pages: result.page_count,
+        published_year: result.published_date.to_i,
+        authors: result.authors_array,
+        cover_image_url: result.image_link.sub('http', 'https')
+      }
     end
   end
 end

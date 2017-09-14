@@ -1,5 +1,5 @@
 class TokenStrategy < ::Warden::Strategies::Base
-  FAILURE_MESSAGE = 'Authentication failed'
+  FAILURE_MESSAGE = 'Authentication failed'.freeze
 
   def valid?
     user_email_from_headers.present? && token_from_headers.present?

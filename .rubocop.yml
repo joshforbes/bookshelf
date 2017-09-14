@@ -1,0 +1,15 @@
+Documentation:
+  Enabled: false
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+    - 'config/**/*'
+  TargetRubyVersion: 2.4.1
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']

@@ -4,4 +4,3 @@ module Tags
     belongs_to :taggable, polymorphic: true
   end
 end
-

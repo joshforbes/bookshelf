@@ -14,10 +14,9 @@ module Rentals
     end
 
     def save
-      if valid?
-        @rental = Rentals::Rental.create(book: @book, user: @user)
-        true
-      end
+      return false unless valid?
+
+      @rental = Rentals::Rental.create(book: @book, user: @user)
     end
 
     private

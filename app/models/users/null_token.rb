@@ -1,15 +1,19 @@
 module Users
   class NullToken
+    def user
+      nil
+    end
+
     def use
       false
     end
 
-    def is_equal_to?(token_string)
+    def equal_to?(*)
       false
     end
 
-    def method_missing(m, *args, &block)
-      nil
+    def active?
+      false
     end
   end
 end

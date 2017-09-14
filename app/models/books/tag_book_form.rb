@@ -13,10 +13,10 @@ module Books
     end
 
     def save
-      if valid?
-        @book = Books::Book.find(@book_id)
-        @book.add_tag(@name)
-      end
+      return false unless valid?
+
+      @book = Books::Book.find(@book_id)
+      @book.add_tag(@name)
     end
   end
 end

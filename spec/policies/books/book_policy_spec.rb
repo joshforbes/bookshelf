@@ -17,5 +17,4 @@ RSpec.describe Books::BookPolicy do
     it { expect(subject.create?).to be(true) }
     it { expect(subject.destroy?).to be(true) }
   end
-
 end
