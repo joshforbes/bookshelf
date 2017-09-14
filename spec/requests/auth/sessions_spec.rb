@@ -32,8 +32,8 @@ RSpec.describe 'Session API', type: :request do
       token = create(:token, user_id: user.id)
 
       delete sessions_url, headers: {
-        'HTTP_AUTHORIZATION': token.body,
-        'HTTP_USER_EMAIL': user.email
+        HTTP_AUTHORIZATION: token.body,
+        HTTP_USER_EMAIL: user.email
       }
 
       expect(response).to have_http_status(:no_content)

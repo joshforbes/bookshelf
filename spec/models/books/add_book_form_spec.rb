@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe Books::AddBookForm do
   describe '#valid?' do
     it 'is valid with valid attributes' do
-      form = Books::AddBookForm.new({ isbn: '123456789' })
-      form.instance_variable_set(:@result, { isbn: '123456789' })
+      form = Books::AddBookForm.new(isbn: '123456789')
+      form.instance_variable_set(:@result, isbn: '123456789')
 
       expect(form).to be_valid
     end
 
     it 'is not valid without a isbn' do
-      form = Books::AddBookForm.new({ isbn: nil })
+      form = Books::AddBookForm.new(isbn: nil)
 
       expect(form).not_to be_valid
     end

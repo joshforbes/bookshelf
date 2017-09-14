@@ -7,7 +7,9 @@ RSpec.describe 'Book Owners API', type: :request do
         book = create(:book)
         owner = create(:user)
 
-        post book_owners_url(book), params: { owner_id: owner.id }, headers: acting_as(create(:user, :admin))
+        post book_owners_url(book),
+             params: { owner_id: owner.id },
+             headers: acting_as(create(:user, :admin))
 
         expect(book.reload.owner_id).to eq(owner.id)
         expect(response).to have_http_status(:created)

@@ -20,6 +20,7 @@ module Auth
     end
 
     private
+
     def session_params
       params.permit(:email, :password)
     end

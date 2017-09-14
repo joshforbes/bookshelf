@@ -16,7 +16,9 @@ RSpec.describe 'Rentals API', type: :request do
     context 'with a already rented book' do
       it 'renders a JSON response with errors' do
         book = create(:book, :with_rental)
-        post rentals_url, params: { book_id: book.id }, headers: acting_as(create(:user))
+        post rentals_url,
+             params: { book_id: book.id },
+             headers: acting_as(create(:user))
 
         expect(response).to have_http_status(:unprocessable_entity)
       end

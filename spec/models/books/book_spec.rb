@@ -26,7 +26,7 @@ RSpec.describe Books::Book, type: :model do
     end
 
     it 'is not valid with a published_year that does not have a length of 4' do
-      @book.published_year = 12345
+      @book.published_year = 123
       expect(@book).not_to be_valid
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe Books::Book, type: :model do
       expect(Tags::Tag.count).to eq(0)
     end
 
-    it 'removes the tag from the book but does not delete the tag if another object uses that tag' do
+    it 'removes the tag from the book but does not delete the tag if it is still in use' do
       @tag = create(:tag)
       @book_one = create(:book)
       @book_one.tags << @tag
