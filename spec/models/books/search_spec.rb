@@ -76,5 +76,4 @@ RSpec.describe Books::Search, search: true do
       expect(results.map(&:title)).to eq([newest_book.title, oldest_book.title])
     end
   end
-
 end
