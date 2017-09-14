@@ -1,5 +1,7 @@
 module Books
   class Book < ApplicationRecord
+    include Books::Index
+
     attribute :active, :boolean, default: true
 
     validates :isbn, :title, :description, presence: true
@@ -11,6 +13,8 @@ module Books
     has_many :tags, through: :taggings
     has_many :rentals, class_name: 'Rentals::Rental'
     has_many :active_rentals, -> { active }, class_name: 'Rentals::Rental'
+
+    searchkick
 
     def add_author(name)
       authors << Authors::Author.where(name: name).first_or_create

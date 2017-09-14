@@ -5,10 +5,9 @@ module Books
     def index
       search_term = params[:search_term].blank? ? '*' : params[:search_term]
 
-      results = Books::Search.search search_term, order: { created_at: :desc }
+      results = Books::Book.search search_term, order: { created_at: :desc }
 
-      pp results
-      render json: results, status: :ok
+      render json: results.to_a, status: :ok
     end
 
     def create
