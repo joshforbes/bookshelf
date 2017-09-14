@@ -33,8 +33,7 @@ describe Books::Lookup do
     end
 
     it 'return an empty hash if the isbn does not match' do
-      searcher = double('search')
-      allow(searcher).to receive(:search) { search_results }
+      searcher = double(search: search_results)
       google_books_search = Books::Lookup.new(searcher)
 
       book_result = google_books_search.by_isbn('123456789')
