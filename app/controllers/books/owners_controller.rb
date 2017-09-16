@@ -1,8 +1,8 @@
 module Books
   class OwnersController < ApplicationController
     def create
-      authorize Books::Book
-      book = Books::Book.find(params[:book_id])
+      authorize Book
+      book = Book.find(params[:book_id])
       user = Users::User.find(params[:owner_id])
 
       book = book.owned_by(user)
@@ -11,8 +11,8 @@ module Books
     end
 
     def destroy
-      authorize Books::Book
-      book = Books::Book.find(params[:book_id])
+      authorize Book
+      book = Book.find(params[:book_id])
 
       book.remove_owner
 

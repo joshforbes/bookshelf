@@ -15,7 +15,7 @@ module Books
     def save
       return false unless valid?
 
-      @book = Books::Book.find(@book_id)
+      @book = Book.find(@book_id)
       @book.add_tag(@name)
     end
   end

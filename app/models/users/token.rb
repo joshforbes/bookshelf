@@ -2,7 +2,7 @@ module Users
   class Token < ApplicationRecord
     EXPIRES = 7.days.ago
 
-    belongs_to :user, class_name: 'Users::User'
+    belongs_to :user
 
     scope :active, -> { where('last_used_at >= ?', EXPIRES) }
 

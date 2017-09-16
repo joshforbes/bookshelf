@@ -4,7 +4,7 @@ module Users
 
     has_secure_password
 
-    has_many :tokens, -> { active }, class_name: 'Users::Token'
+    has_many :tokens, -> { active }
     has_many :rentals, class_name: 'Rentals::Rental'
     has_many :active_rentals, -> { active }, class_name: 'Rentals::Rental'
 
@@ -17,7 +17,7 @@ module Users
     end
 
     def token_matching(body)
-      tokens.to_a.find { |token| token.equal_to?(body) } || Users::NullToken.new
+      tokens.to_a.find { |token| token.equal_to?(body) } || NullToken.new
     end
 
     def can_rent?

@@ -16,7 +16,7 @@ module Rentals
     def save
       return false unless valid?
 
-      @rental = Rentals::Rental.create(book: @book, user: @user)
+      @rental = Rental.create(book: @book, user: @user)
     end
 
     private

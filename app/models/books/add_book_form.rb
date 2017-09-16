@@ -15,7 +15,7 @@ module Books
     def save
       return false unless valid?
 
-      @book = Books::Book.create!(book_params)
+      @book = Book.create!(book_params)
       authors.each { |author_name| @book.add_author(author_name) }
     end
 
