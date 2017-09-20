@@ -61,6 +61,7 @@ GEM
       activesupport (>= 4.2.0)
     googlebooks (0.0.9)
       httparty
+    graphql (1.6.8)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
@@ -171,6 +172,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   googlebooks
+  graphql
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.7)
